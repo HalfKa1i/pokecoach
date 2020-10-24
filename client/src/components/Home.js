@@ -15,7 +15,7 @@ function Home() {
             <h2>{sample && (
                 <div>
                     {sample}
-                    </div>
+                </div>
             )}</h2>
         </div>
     );
