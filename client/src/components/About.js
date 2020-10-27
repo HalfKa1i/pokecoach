@@ -1,9 +1,22 @@
 import React from 'react';
 
 function About() {
+    const [sample, setSample] = React.useState(null);
+
+    const getSample = () => {
+        fetch('/api/sample')
+            .then(response => response.json())
+            .then(data => setSample(data));
+    };
+
     return (
         <div>
-            <h2>About</h2>
+            <button onClick={getSample}>Get sample data</button>
+            <h2>{sample && (
+                <div>
+                    {sample}
+                </div>
+            )}</h2>
         </div>
     );
 }
