@@ -20,6 +20,15 @@ app.get('/api/pokemon', (req, res) => {
   });
 });
 
+app.get('/api/pokemon/:pokemon', (req, res) => {
+  if (req.params.pokemon) {
+    console.log('load data for ' + req.params.pokemon);
+
+
+  }
+  // TODO: error handling :)
+});
+
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {

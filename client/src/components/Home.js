@@ -13,7 +13,9 @@ function Home() {
     };
 
     const battlePokemon = (data) => {
-      alert(data.value);
+      fetch(`/api/pokemon/${data.value}`)
+          .then(response => response.json())
+          .then(data => console.log(data));
     };
 
     return (
