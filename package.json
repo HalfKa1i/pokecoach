@@ -6,7 +6,8 @@
   "dependencies": {
     "csvtojson": "^2.0.10",
     "express": "^4.15.3",
-    "password-generator": "^2.1.0"
+    "password-generator": "^2.1.0",
+    "pokedex-promise-v2": "^3.2.0"
   },
   "scripts": {
     "start": "node index.js",
