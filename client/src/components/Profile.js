@@ -4,7 +4,7 @@ import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from './Loading';
 
 const Profile = () => {
-    const { user, isAuthenticated, isLoading } = useAuth0();
+    const { user, isLoading } = useAuth0();
     const { name, picture, email } = user;
 
     if (isLoading) {

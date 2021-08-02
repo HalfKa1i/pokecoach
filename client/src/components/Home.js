@@ -4,43 +4,53 @@ import Image from "react-bootstrap/Image";
 import Badge from "react-bootstrap/Badge";
 import Card from "react-bootstrap/Card";
 
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+
+import { pokemonAdded } from '../features/pokemonSlice'
 
 import './Home.css';
 
 const Home = () => {
     useEffect(() => getOptions(), []);
 
-    const [options, setOptions] = useState(null);
-    const [pokemon, setPokemon] = useState(null);
+    const pokemon = useSelector(state => state.pokemon)
+    const [selectedPokemon, setSelectedPokemon] = useState(null);
+
+    const dispatch = useDispatch()
 
     const getOptions = () => {
         fetch('/api/pokemon')
             .then(response => response.json())
-            .then(data => setOptions(data));
+            .then(data => {
+                dispatch(
+                    pokemonAdded(data)
+                )
+            });
     };
 
     const getPokemon = (data) => {
         if (data && data.value) {
             fetch(`/api/pokemon/${data.value}`)
                 .then(response => response.json())
-                .then(data => setPokemon(data));
+                .then(data => setSelectedPokemon(data));
         }
     };
 
     return (
         <div>
             <h1>Who are you battling?</h1>
-            <Select options={options} isClearable={true} isSearchable={true} placeholder="Search for Pokémon" onChange={getPokemon}/>
+            <Select options={pokemon} isClearable={true} isSearchable={true} placeholder="Search for Pokémon" onChange={getPokemon}/>
 
             <hr/>
 
-            <div>{pokemon && (
+            <div>{selectedPokemon && (
                 <div>
-                    <h3>{pokemon.name}</h3>
-                    <Image src={pokemon.spriteUrl} fluid className="pokemon-sprite" />
+                    <h3>{selectedPokemon.name}</h3>
+                    <Image src={selectedPokemon.spriteUrl} fluid className="pokemon-sprite" />
 
                     <div>
-                        {pokemon.types.map((value) => {
+                        {selectedPokemon.types.map((value) => {
                             return  <Badge pill variant="primary" className={value}>{value}</Badge>
                         })}
                     </div>
@@ -50,7 +60,7 @@ const Home = () => {
                     <Card border="danger"  className="text-center">
                         <Card.Header>Weaknesses</Card.Header>
                         <Card.Body>
-                            {pokemon.weaknesses.map((value) => {
+                            {selectedPokemon.weaknesses.map((value) => {
                                 return  <Badge pill variant="primary" className={value}>{value}</Badge>
                             })}
                         </Card.Body>
