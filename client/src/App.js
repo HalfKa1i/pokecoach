@@ -25,16 +25,10 @@ const App = () => {
       <Router>
         <Header/>
         <Container fluid className="main-container">
-          <Row>
-            <Col>
-              <div>
-                <Switch>
-                  <Route exact path="/" component={Home} />
-                  <ProtectedRoute path="/profile" component={Profile} />
-                </Switch>
-              </div>
-            </Col>
-          </Row>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <ProtectedRoute path="/profile" component={Profile} />
+            </Switch>
         </Container>
       </Router>
     </div>
