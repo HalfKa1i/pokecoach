@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import Select from 'react-select'
+import Select from 'react-select';
 import Image from "react-bootstrap/Image";
 import Badge from "react-bootstrap/Badge";
 import Card from "react-bootstrap/Card";
 
+
 import './Home.css';
 
-function Home() {
+const Home = () => {
     useEffect(() => getOptions(), []);
 
     const [options, setOptions] = useState(null);
