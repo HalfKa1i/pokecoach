@@ -20,9 +20,11 @@ const Home = () => {
     };
 
     const getPokemon = (data) => {
-      fetch(`/api/pokemon/${data.value}`)
-          .then(response => response.json())
-          .then(data => setPokemon(data));
+        if (data && data.value) {
+            fetch(`/api/pokemon/${data.value}`)
+                .then(response => response.json())
+                .then(data => setPokemon(data));
+        }
     };
 
     return (
