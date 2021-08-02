@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux'
 import { pokemonAdded } from '../features/pokemonSlice'
 
 import './Home.css';
+const axios = require('axios').default;
 
 const Battle = () => {
     useEffect(() => getOptions(), []);
@@ -20,26 +21,34 @@ const Battle = () => {
     const dispatch = useDispatch()
 
     const getOptions = () => {
-        fetch('/api/pokemon')
-            .then(response => response.json())
-            .then(data => {
+        axios.get('/api/pokemon')
+            .then(function (response) {
                 dispatch(
-                    pokemonAdded(data)
+                    pokemonAdded(response.data)
                 )
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
             });
     };
 
     const getPokemon = (data) => {
         if (data && data.value) {
-            fetch(`/api/pokemon/${data.value}`)
-                .then(response => response.json())
-                .then(data => setSelectedPokemon(data));
+            axios.get(`/api/pokemon/${data.value}`)
+                .then(function (response) {
+                    setSelectedPokemon(response.data)
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
         }
     };
 
     return (
         <div>
-            <h2>Who are you battling?</h2>
+            <h4>Who are you battling?</h4>
             <Select options={pokemon} isClearable={true} isSearchable={true} placeholder="Search for Pokémon" onChange={getPokemon}/>
 
             <hr/>

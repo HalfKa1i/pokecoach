@@ -12,7 +12,7 @@ const LoginButton = () => {
     const { loginWithRedirect } = useAuth0();
 
     return (
-        <Button variant="light" onClick={() => loginWithRedirect()}>Login</Button>
+        <Button variant="outline-light" onClick={() => loginWithRedirect()}>Login</Button>
     );
 };
 
@@ -20,7 +20,7 @@ const LogoutButton = () => {
     const { logout } = useAuth0();
 
     return (
-        <Button variant="light" onClick={() => logout({ returnTo: window.location.origin })}>
+        <Button variant="outline-light" onClick={() => logout({ returnTo: window.location.origin })}>
             Log Out
         </Button>
     );

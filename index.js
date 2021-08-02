@@ -1,15 +1,16 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const app = express();
+app.use(bodyParser.json());
+app.set('query parser', 'simple');
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 const db = require("./app/models");
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-});
+db.sequelize.sync();
 
 // Put all API endpoints under '/api'
 app.get('/api/sample',  (req, res) => {

@@ -5,6 +5,8 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Team
 exports.create = (req, res) => {
     // Validate request
+    console.log(req.body);
+
     if (!req.body.name && !req.body.owner && !req.body.pokemon) {
         res.status(400).send({
             message: "Content cannot be empty!"
@@ -36,6 +38,10 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     Team.findAll()
         .then(data => {
+            if (data && data.pokemon) {
+                data.pokemon = JSON.parse(data.pokemon);
+            }
+
             res.send(data);
         })
         .catch(err => {
@@ -53,6 +59,10 @@ exports.findAllByName = (req, res) => {
 
     Team.findAll({ where: condition })
         .then(data => {
+            if (data && data.pokemon) {
+                data.pokemon = JSON.parse(data.pokemon);
+            }
+
             res.send(data);
         })
         .catch(err => {
@@ -70,6 +80,10 @@ exports.findAllByOwner = (req, res) => {
 
     Team.findAll({ where: condition })
         .then(data => {
+            if (data && data.pokemon) {
+                data.pokemon = JSON.parse(data.pokemon);
+            }
+
             res.send(data);
         })
         .catch(err => {
